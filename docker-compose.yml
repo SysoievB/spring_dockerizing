@@ -1,4 +1,5 @@
-version: "3"
+version: '3.8'
+
 services:
   spring_dockerizing:
     image: spring_dockerizing
@@ -8,14 +9,19 @@ services:
       - employee-mysql
     depends_on:
       - mysqldb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/spring_dockerizing
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
 
   mysqldb:
     image: mysql:8
     networks:
       - employee-mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=spring_dockerizing
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_USER: root
+      MYSQL_DATABASE: spring_dockerizing
 
 networks:
   employee-mysql:
